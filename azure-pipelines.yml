@@ -41,4 +41,4 @@ stages:
       inputs:
         azureSubscription: 'Alonsillo Subscription(54814f77-9ff7-4034-85a9-16ccc83e668e)'
         appName: 'aocdokerapp'
-        containers: 'containerregistryaoc.azurecr.io/yohnjodevopsaocflask:latest'
+        containers: 'containerregistryaoc.azurecr.io/yohnjodevopsaocflask:$(tag)'

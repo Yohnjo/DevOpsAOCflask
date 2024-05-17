@@ -3,6 +3,8 @@
 ## Architecture
 ![Architecture](Arquitectura.png)
 
+#### The entire deploy process is automated, the developer commits to main and it performs the respective deploy to the App Service. If you require specific information, you can review the following explanation of each file and how it allows this automation to be carried out.
+
 ## Files
 
 ### Dockerfile: 
@@ -120,3 +122,12 @@ if __name__ == "__main__":
   - `host="0.0.0.0"` making the server publicly accessible by listening on all available IP addresses.
   - `port=8000` specifying the port number defined earlier.
 
+### Documentation of resources:
+## App Service
+https://learn.microsoft.com/en-us/azure/app-service/overview
+## App Service plan 
+https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans
+## Azure Container Registry
+https://learn.microsoft.com/en-us/azure/container-registry/container-registry-intro
+## Azure Pipelines
+https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/what-is-azure-pipelines?view=azure-devops

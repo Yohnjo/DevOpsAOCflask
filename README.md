@@ -1,8 +1,7 @@
 # Read me
 
 ## Architecture
-
-
+![Architecture](Arquitectura.png)
 
 ## Files
 

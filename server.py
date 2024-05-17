@@ -5,7 +5,6 @@ MESSAGE = "Hello, world! \n This is flask app(v-2.0.11). \n"
 
 app = Flask(__name__)
 
-
 @app.route("/")
 def root():
     result = MESSAGE.encode("utf-8")

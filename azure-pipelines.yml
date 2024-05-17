@@ -3,42 +3,55 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
+# Defines the resource repository to be used in the pipeline. 'self' refers to the current repository.
 - main
 
-resources:
+resources: 
+  # Defines the resource repository to be used in the pipeline. 'self' refers to the current repository.
 - repo: self
-
+  
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '1c1237d4-cb9a-42fa-9715-e786943c9025'
+  # Name of the image repository in the container registry
   imageRepository: 'yohnjodevopsaocflask'
+  # URL of the container registry
   containerRegistry: 'containerregistryaoc.azurecr.io'
+  # Path to the Dockerfile within the build sources directory
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  # Tag for the image, set to the build ID
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
 stages:
+  # Defines the stages of the pipeline
 - stage: Build
+  # Display name for the stage
   displayName: Build and push stage
   jobs:
+    # Defines the jobs within the stage
   - job: Build
+    # Display name for the job
     displayName: Build
+    # Specifies the agent pool and VM image
     pool:
       vmImage: $(vmImageName)
     steps:
+      # Task to build and push an image to the container registry
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+        command: buildAndPush           # Command to build and push the image
+        repository: $(imageRepository)  # Image repository
+        dockerfile: $(dockerfilePath)   # Path to the Dockerfile
+        containerRegistry: $(dockerRegistryServiceConnection)   # Container registry service connection
+        tags: |    
+          $(tag) 
+    # Task to deploy the container to an Azure Web App  
     - task: AzureWebAppContainer@1
       inputs:
         azureSubscription: 'Alonsillo Subscription(54814f77-9ff7-4034-85a9-16ccc83e668e)'
-        appName: 'aocdokerapp'
-        containers: 'containerregistryaoc.azurecr.io/yohnjodevopsaocflask:$(tag)'
+        appName: 'aocdokerapp'     # Name of the web app in Azure
+        containers: 'containerregistryaoc.azurecr.io/yohnjodevopsaocflask:$(tag)'  # Containers to be deployed, including the registry URL and tag
